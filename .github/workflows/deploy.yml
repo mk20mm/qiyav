@@ -47,10 +47,30 @@ jobs:
           NEXT_PUBLIC_SITE_URL: ${{ steps.base.outputs.url }}
         run: npm run build
 
+      - name: Flatten basePath asset directory
+        if: steps.base.outputs.path != ''
+        run: |
+          # vinext 会把 assetPrefix 自动设为 basePath，导致静态资源输出到
+          # dist/client/<basePath>/_next/，而 HTML 位于 dist/client/ 根目录。
+          # 展平后资源与 HTML 同层，才能被 /<basePath>/_next/... 正确命中。
+          base="${{ steps.base.outputs.path }}"
+          base="${base#/}"
+          if [ -d "dist/client/$base" ]; then
+            cp -a "dist/client/$base/." "dist/client/"
+            rm -rf "dist/client/$base"
+          fi
+
+      - name: Verify build output
+        run: |
+          test -d dist/client/_next || { echo "::error::dist/client/_next is missing"; exit 1; }
+          echo "--- dist/client ---"
+          ls -la dist/client
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist/client
+          include-hidden-files: true
 
   deploy:
     needs: build
