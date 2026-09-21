@@ -3,6 +3,7 @@ import "./globals.css";
 
 const title = "QIYA Engineering Notes｜企业系统交付实践";
 const description = "围绕供应链、经营数据、业财系统与企业 AI 集成整理的工程实践文档。";
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 export async function generateMetadata(): Promise<Metadata> {
   // 静态导出时无请求头可用，站点地址在构建期通过环境变量确定。
@@ -32,6 +33,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="zh-CN" suppressHydrationWarning>
       <head>
+        <link rel="icon" href={`${basePath}/favicon.svg`} type="image/svg+xml" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
