@@ -47,21 +47,27 @@ jobs:
           NEXT_PUBLIC_SITE_URL: ${{ steps.base.outputs.url }}
         run: npm run build
 
-      - name: Flatten basePath asset directory
+      - name: Flatten basePath output for project site
         if: steps.base.outputs.path != ''
         run: |
-          # vinext 会把 assetPrefix 自动设为 basePath，导致静态资源输出到
-          # dist/client/<basePath>/_next/，而 HTML 位于 dist/client/ 根目录。
-          # 展平后资源与 HTML 同层，才能被 /<basePath>/_next/... 正确命中。
+          # 带 basePath 构建时，vinext 按 URL 路径镜像输出：
+          #   首页 -> dist/client/<basePath>.html
+          #   其余 -> dist/client/<basePath>/...
+          # GitHub Pages 项目站点把产物挂载在 /<basePath>/ 下，因此需要
+          # 把这一层展开到产物根目录，首页改名为 index.html。
           base="${{ steps.base.outputs.path }}"
           base="${base#/}"
           if [ -d "dist/client/$base" ]; then
-            cp -a "dist/client/$base/." "dist/client/"
-            rm -rf "dist/client/$base"
+            mv "dist/client/$base"/* dist/client/
+            rmdir "dist/client/$base"
+          fi
+          if [ -f "dist/client/$base.html" ]; then
+            mv "dist/client/$base.html" dist/client/index.html
           fi
 
       - name: Verify build output
         run: |
+          test -f dist/client/index.html || { echo "::error::dist/client/index.html is missing"; exit 1; }
           test -d dist/client/_next || { echo "::error::dist/client/_next is missing"; exit 1; }
           echo "--- dist/client ---"
           ls -la dist/client

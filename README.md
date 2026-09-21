@@ -63,7 +63,7 @@ npm run build
 NEXT_PUBLIC_BASE_PATH="/<repo>" NEXT_PUBLIC_SITE_URL="https://<user>.github.io/<repo>" npm run build
 ```
 
-> 备注：`patches/vinext+1.0.0-beta.2.patch` 修复了 vinext 静态导出预渲染阶段未拼接 `basePath` 导致动态路由 404 的问题，通过 `postinstall` 自动应用。
+> 说明：带 `basePath` 构建时，vinext 会按 URL 路径镜像输出（首页为 `<basePath>.html`，其余在 `<basePath>/` 目录下），workflow 中的「Flatten basePath output」步骤会将其展平到产物根目录，以适配 GitHub Pages 项目站点的挂载方式。
 
 ## 后续补证优先级
 
