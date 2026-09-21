@@ -1,0 +1,37 @@
+{
+  "projectId": "14551273479936110651",
+  "title": "QIYA V1 · 系统交付实践",
+  "projectUrl": "https://stitch.withgoogle.com/projects/14551273479936110651",
+  "designSystem": {
+    "assetId": "16376190943580049744",
+    "displayName": "QIYA Editorial Evidence",
+    "primaryColor": "#1A5F7A",
+    "secondaryColor": "#6B6560",
+    "tertiaryColor": "#9A5B2E",
+    "backgroundColor": "#F3F0EA",
+    "headlineFont": "SPACE_GROTESK",
+    "bodyFont": "IBM_PLEX_SANS",
+    "labelFont": "JETBRAINS_MONO",
+    "roundness": "ROUND_FOUR"
+  },
+  "screens": [
+    { "screenId": "f8ac09a1708a44b58a6569ea65affa46", "title": "首页", "route": "/", "deviceType": "DESKTOP", "file": "designs/home.png" },
+    { "screenId": "49f2afff9e284c2388ad3fd366cd4699", "title": "项目复盘列表", "route": "/cases", "deviceType": "DESKTOP", "file": "designs/cases-index.png" },
+    { "screenId": "7dfc31b2fe5f41a5b662ce0820f39e9d", "title": "GMV 案例详情", "route": "/cases/ecosystem-gmv", "deviceType": "DESKTOP", "file": "designs/case-gmv.png" },
+    { "screenId": "8d32d48e6d204f8c914ec2f066ad679f", "title": "方法论总览", "route": "/method", "deviceType": "DESKTOP", "file": "designs/method-index.png" },
+    { "screenId": "772dc6e1127f412c8ca0bc90df707a92", "title": "方法论章节", "route": "/method/playbook-spec", "deviceType": "DESKTOP", "file": "designs/method-chapter.png" },
+    { "screenId": "38fd4e3a5e764f57947bc7cc6f81d28c", "title": "资产包模板", "route": "/assets/checklist", "deviceType": "DESKTOP", "file": "designs/asset-checklist.png" },
+    { "screenId": "c7cc93376e8c4f9199f50c13037fa680", "title": "关于", "route": "/about", "deviceType": "DESKTOP", "file": "designs/about.png" },
+    { "screenId": "d25eac43c02a4d43b7073da8463a1c6a", "title": "长文阅读", "route": "/interview", "deviceType": "DESKTOP", "file": "designs/interview.png" },
+    { "screenId": "3f610d5753d541ebb55ee535bb33bfa1", "title": "站内搜索", "route": "/", "deviceType": "DESKTOP", "file": "designs/search-overlay.png" },
+    { "screenId": "c369ac11e30c4d3ca419ec20492992fe", "title": "同步平台总览", "route": "/systems/data-sync-platform", "deviceType": "DESKTOP", "file": "designs/sync-overview.png" },
+    { "screenId": "617ab5ae0a7c4d199a25c235756f193a", "title": "数据源管理", "route": "/systems/data-sync-platform?view=sources", "deviceType": "DESKTOP", "file": "designs/sync-sources.png" },
+    { "screenId": "94cce4df5e3f43e783b7d59dd332430c", "title": "同步任务", "route": "/systems/data-sync-platform?view=sync-tasks", "deviceType": "DESKTOP", "file": "designs/sync-tasks.png" },
+    { "screenId": "b350752dc536477682bc968f32ae4660", "title": "任务编排", "route": "/systems/data-sync-platform?view=orchestration", "deviceType": "DESKTOP", "file": "designs/sync-orchestration.png" },
+    { "screenId": "b54053386fc84d3080b1dbc9f3eb7c6c", "title": "日志中心", "route": "/systems/data-sync-platform?view=logs", "deviceType": "DESKTOP", "file": "designs/sync-logs.png" },
+    { "screenId": "c92cf2987e114ed694baeff6fecd7f65", "title": "数据血缘", "route": "/systems/data-sync-platform?view=lineage", "deviceType": "DESKTOP", "file": "designs/sync-lineage.png" },
+    { "screenId": "31d57f8b00c74cca8ba045708b8a7cb8", "title": "用户管理", "route": "/systems/data-sync-platform?view=users", "deviceType": "DESKTOP", "file": "designs/sync-users.png" },
+    { "screenId": "7b219677806147c082530434c5a6191c", "title": "业务预警", "route": "/systems/data-sync-platform?view=alerts", "deviceType": "DESKTOP", "file": "designs/sync-alerts.png" },
+    { "screenId": "0f4627324fd14b34bf98476060c2adb1", "title": "数据同步案例深潜", "route": "/cases/data-sync-platform", "deviceType": "DESKTOP", "file": "designs/case-data-sync.png" }
+  ]
+}

@@ -1,0 +1,23 @@
+diff --git a/node_modules/vinext/dist/build/prerender.js b/node_modules/vinext/dist/build/prerender.js
+index e6b8b96..032dba0 100644
+--- a/node_modules/vinext/dist/build/prerender.js
++++ b/node_modules/vinext/dist/build/prerender.js
+@@ -754,7 +754,8 @@ async function prerenderApp({ routes, metadataRoutes = [], outDir, config, mode,
+ 				const htmlHeaders = new Headers();
+ 				if (prerenderRouteParamsHeader !== null) htmlHeaders.set(VINEXT_PRERENDER_ROUTE_PARAMS_HEADER, prerenderRouteParamsHeader);
+ 				if (isSpeculative) htmlHeaders.set(VINEXT_PRERENDER_SPECULATIVE_HEADER, "1");
+-				const htmlRequest = new Request(`http://localhost${urlPath}`, { headers: htmlHeaders });
++				const requestPath = `${config.basePath ?? ""}${urlPath}`;
++				const htmlRequest = new Request(`http://localhost${requestPath}`, { headers: htmlHeaders });
+ 				const htmlRender = await runWithHeadersContext(headersContextFromRequest(htmlRequest), async () => {
+ 					const response = await rscHandler(htmlRequest);
+ 					const cacheControl = response.headers.get("cache-control") ?? "";
+@@ -814,7 +815,7 @@ async function prerenderApp({ routes, metadataRoutes = [], outDir, config, mode,
+ 					});
+ 					if (prerenderRouteParamsHeader !== null) rscHeaders.set(VINEXT_PRERENDER_ROUTE_PARAMS_HEADER, prerenderRouteParamsHeader);
+ 					if (isSpeculative) rscHeaders.set(VINEXT_PRERENDER_SPECULATIVE_HEADER, "1");
+-					const rscRequest = new Request(`http://localhost${urlPath}`, { headers: rscHeaders });
++					const rscRequest = new Request(`http://localhost${requestPath}`, { headers: rscHeaders });
+ 					const rscRes = await runWithHeadersContext(headersContextFromRequest(rscRequest), () => rscHandler(rscRequest));
+ 					if (!rscRes.ok) {
+ 						await rscRes.body?.cancel();
