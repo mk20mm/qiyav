@@ -1,0 +1,55 @@
+name: Deploy to Cloudflare Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: cloudflare-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.13
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check Cloudflare credentials
+        id: creds
+        run: |
+          if [ -z "${{ secrets.CLOUDFLARE_API_TOKEN }}" ]; then
+            echo "::warning::CLOUDFLARE_API_TOKEN 未配置，跳过 Cloudflare Pages 部署。请到仓库 Settings → Secrets and variables → Actions 添加。"
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build static site
+        if: steps.creds.outputs.skip != 'true'
+        env:
+          # Cloudflare Pages 部署在域名根路径，不需要 basePath
+          NEXT_PUBLIC_SITE_URL: https://qiyav.pages.dev
+        run: npm run build
+
+      - name: Verify build output
+        if: steps.creds.outputs.skip != 'true'
+        run: |
+          test -f dist/client/index.html || { echo "::error::dist/client/index.html is missing"; exit 1; }
+          test -d dist/client/_next || { echo "::error::dist/client/_next is missing"; exit 1; }
+          echo "--- dist/client ---"
+          ls -la dist/client
+
+      - name: Deploy to Cloudflare Pages
+        if: steps.creds.outputs.skip != 'true'
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist/client --project-name=qiyav --branch=main
